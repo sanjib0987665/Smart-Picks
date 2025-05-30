@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .login-form, .admin-content {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e1e1e1;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    
+    .btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-danger {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    }
+    
+    .product-list {
+      margin-top: 2rem;
+    }
+    
+    .product-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border: 1px solid #e1e1e1;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      background: white;
+    }
+    
+    .product-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-right: 1rem;
+    }
+    
+    .product-info {
+      flex: 1;
+    }
+    
+    .product-info h4 {
+      margin: 0 0 0.5rem 0;
+      color: #333;
+    }
+    
+    .product-info p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .delete-btn {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .delete-btn:hover {
+      background: linear-gradient(135deg, #ee5a52, #dc3545);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(238, 90, 82, 0.4);
+    }
+    
+    .delete-btn:active {
+      transform: translateY(0);
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .logout-btn {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Admin Panel</h1>
+    <p>Manage your products</p>
+    <a class="admin-link" href="index.html">Back to Site</a>
+  </header>
+  
+  <!-- Login Form -->
+  <div id="loginForm" class="login-form">
+    <h2>Admin Login</h2>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Enter your email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Enter your password">
+    </div>
+    <button class="btn" onclick="login()">Login</button>
+    <div id="loginError" style="color: red; margin-top: 1rem; display: none;"></div>
+  </div>
+
+  <!-- Admin Content -->
+  <div id="adminContent" class="admin-content hidden">
+    <button class="logout-btn" onclick="logout()">Logout</button>
+    
+    <h2>Add New Product</h2>
+    <form id="productForm">
+      <div class="form-group">
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="productImage">Product Image URL:</label>
+        <input type="url" id="productImage" placeholder="https://example.com/image.jpg" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="productDescription">Product Description:</label>
+        <textarea id="productDescription" rows="4" required></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="productCategory">Category:</label>
+        <select id="productCategory" required>
+          <option value="">Select Category</option>
+          <option value="tech">Tech</option>
+          <option value="fashion">Fashion</option>
+          <option value="gifts">Gifts</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="productLink">Buy Now Link:</label>
+        <input type="url" id="productLink" placeholder="https://amazon.in/product" required>
+      </div>
+      
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="isFeatured"> Featured Product
+        </label>
+      </div>
+      
+      <button type="submit" class="btn">Add Product</button>
+    </form>
+
+    <div class="product-list">
+      <h2>Existing Products</h2>
+      <div id="productsList"></div>
+    </div>
+
+    <div class="product-list">
+      <h2>Deletion Audit Log</h2>
+      <button class="btn" onclick="showDeletionLog()" style="margin-bottom: 1rem;">View Deletion History</button>
+      <div id="deletionLog" style="display: none;"></div>
+    </div>
+  </div>
+
+  <script>
+    // Admin credentials
+    const ADMIN_EMAIL = 'biswasshadan388@gmail.com';
+    const ADMIN_PASSWORD = 'sanjib@741121₹7+';
+
+    // Check if already logged in
+    if (localStorage.getItem('adminLoggedIn') === 'true') {
+      showAdminContent();
+    }
+
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorDiv = document.getElementById('loginError');
+
+      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        localStorage.setItem('adminLoggedIn', 'true');
+        showAdminContent();
+        errorDiv.style.display = 'none';
+      } else {
+        errorDiv.textContent = 'Invalid email or password';
+        errorDiv.style.display = 'block';
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('adminLoggedIn');
+      document.getElementById('loginForm').classList.remove('hidden');
+      document.getElementById('adminContent').classList.add('hidden');
+      document.getElementById('email').value = '';
+      document.getElementById('password').value = '';
+    }
+
+    function showAdminContent() {
+      document.getElementById('loginForm').classList.add('hidden');
+      document.getElementById('adminContent').classList.remove('hidden');
+      loadProducts();
+    }
+
+    // Product management
+    document.getElementById('productForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const product = {
+        id: Date.now(),
+        name: document.getElementById('productName').value,
+        image: document.getElementById('productImage').value,
+        description: document.getElementById('productDescription').value,
+        category: document.getElementById('productCategory').value,
+        link: document.getElementById('productLink').value,
+        featured: document.getElementById('isFeatured').checked
+      };
+
+      // Get existing products
+      let products = JSON.parse(localStorage.getItem('products')) || [];
+      products.push(product);
+      localStorage.setItem('products', JSON.stringify(products));
+
+      // Reset form
+      document.getElementById('productForm').reset();
+      
+      // Reload products list
+      loadProducts();
+      
+      // Update main site
+      updateMainSite();
+      
+      alert('Product added successfully!');
+    });
+
+    function loadProducts() {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const productsList = document.getElementById('productsList');
+      
+      if (products.length === 0) {
+        productsList.innerHTML = '<p>No products added yet.</p>';
+        return;
+      }
+
+      productsList.innerHTML = products.map(product => `
+        <div class="product-item">
+          <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/80x80?text=No+Image'">
+          <div class="product-info">
+            <h4>${product.name} ${product.featured ? '⭐' : ''}</h4>
+            <p><strong>Category:</strong> ${product.category}</p>
+            <p>${product.description}</p>
+          </div>
+          <button class="delete-btn" onclick="deleteProduct(${product.id})">Delete</button>
+        </div>
+      `).join('');
+    }
+
+    function deleteProduct(id) {
+      const product = JSON.parse(localStorage.getItem('products')).find(p => p.id === id);
+      const productName = product ? product.name : 'Unknown Product';
+      
+      // First confirmation
+      if (!confirm(`⚠️ DELETE CONFIRMATION\n\nYou are about to permanently delete:\n"${productName}"\n\nThis action cannot be undone. Continue?`)) {
+        return;
+      }
+      
+      // Second confirmation with typing requirement
+      const confirmText = prompt(`🔒 SECURITY CHECK\n\nTo confirm deletion of "${productName}", please type "DELETE" exactly (case sensitive):`);
+      
+      if (confirmText !== 'DELETE') {
+        alert('❌ Deletion cancelled. Incorrect confirmation text.');
+        return;
+      }
+      
+      // Admin email verification
+      const adminEmail = prompt('🛡️ ADMIN VERIFICATION\n\nEnter your admin email to authorize this deletion:');
+      
+      if (adminEmail !== ADMIN_EMAIL) {
+        alert('❌ Unauthorized. Invalid admin email.');
+        return;
+      }
+      
+      // Final confirmation
+      if (!confirm(`🗑️ FINAL CONFIRMATION\n\nThis is your last chance to cancel.\n\nDelete "${productName}" permanently?`)) {
+        return;
+      }
+      
+      // Proceed with deletion
+      let products = JSON.parse(localStorage.getItem('products')) || [];
+      products = products.filter(product => product.id !== id);
+      localStorage.setItem('products', JSON.stringify(products));
+      loadProducts();
+      updateMainSite();
+      
+      alert(`✅ Product "${productName}" has been successfully deleted.`);
+      
+      // Log the deletion (for audit trail)
+      const deletionLog = JSON.parse(localStorage.getItem('deletionLog')) || [];
+      deletionLog.push({
+        productName: productName,
+        deletedAt: new Date().toISOString(),
+        deletedBy: adminEmail
+      });
+      localStorage.setItem('deletionLog', JSON.stringify(deletionLog));
+    }
+
+    function updateMainSite() {
+      // This will trigger an update to the main site's product display
+      // The main site will check localStorage for products
+      localStorage.setItem('productsUpdated', Date.now().toString());
+    }
+
+    function showDeletionLog() {
+      const deletionLog = JSON.parse(localStorage.getItem('deletionLog')) || [];
+      const logContainer = document.getElementById('deletionLog');
+      
+      if (deletionLog.length === 0) {
+        logContainer.innerHTML = '<p style="color: #666;">No deletions recorded.</p>';
+      } else {
+        logContainer.innerHTML = deletionLog.map(entry => `
+          <div style="padding: 1rem; margin: 0.5rem 0; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #ff6b6b;">
+            <strong>Product:</strong> ${entry.productName}<br>
+            <strong>Deleted At:</strong> ${new Date(entry.deletedAt).toLocaleString()}<br>
+            <strong>Deleted By:</strong> ${entry.deletedBy}
+          </div>
+        `).reverse().join('');
+      }
+      
+      logContainer.style.display = logContainer.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Handle Enter key for login
+    document.getElementById('password').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        login();
+      }
+    });
+  </script>
+</body>
+</html>

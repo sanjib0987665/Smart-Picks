@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0"/>
+  <meta name="theme-color" content="#1a1a2e"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="description" content="Discover top-rated products in tech, fashion, and gifts. Smart Picks - Your trusted source for quality recommendations."/>
+  <title>Smart Picks - Top Products in Tech, Fashion & More</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <p style="font-size: 1.1rem; margin-bottom: 1rem; color: #f0f6ff; font-weight: 500;">We help you find the best deals on tech, fashion, and gifts</p>
+    <h1>Smart Picks</h1>
+    <p>Your trusted source for quality recommendations</p>
+    <a class="admin-link" href="admin.html">Admin</a>
+  </header>
+  <nav>
+    <button onclick="filterProducts('all')">All</button>
+    <button onclick="filterProducts('tech')">Tech</button>
+    <button onclick="filterProducts('fashion')">Fashion</button>
+    <button onclick="filterProducts('gifts')">Gifts</button>
+  </nav>
+  <main id="product-container">
+    <!-- Tech Products -->
+    <div class="product-card" data-category="tech">
+      <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=300&h=200&fit=crop" alt="Headphones"/>
+      <h3>Wireless Headphones</h3>
+      <p>Premium noise-cancelling headphones with superior sound quality.</p>
+      <a href="https://amazon.in" target="_blank"><span>🛒 Buy Now</span></a>
+    </div>
+    
+    <div class="product-card featured" data-category="tech">
+      <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300&h=200&fit=crop" alt="Smartphone"/>
+      <h3>Latest Smartphone</h3>
+      <p>High-performance smartphone with advanced camera features and all-day battery life.</p>
+      <a href="https://amazon.in" target="_blank"><span>🛒 Buy Now</span></a>
+    </div>
+    
+    <!-- Fashion Products -->
+    <div class="product-card" data-category="fashion">
+      <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=300&h=200&fit=crop" alt="Watch"/>
+      <h3>Luxury Watch</h3>
+      <p>Elegant timepiece perfect for any occasion. Crafted with precision and style.</p>
+      <a href="https://amazon.in" target="_blank"><span>👑 Shop Now</span></a>
+    </div>
+    
+    <div class="product-card" data-category="fashion">
+      <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=200&fit=crop" alt="Sneakers"/>
+      <h3>Designer Sneakers</h3>
+      <p>Comfortable and stylish footwear for everyday wear. Premium quality materials.</p>
+      <a href="https://amazon.in" target="_blank"><span>👟 Get Yours</span></a>
+    </div>
+    
+    <!-- Gift Products -->
+    <div class="product-card" data-category="gifts">
+      <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=200&fit=crop" alt="Coffee Maker"/>
+      <h3>Coffee Maker</h3>
+      <p>Perfect gift for coffee lovers - brew barista-quality coffee at home with ease.</p>
+      <a href="https://amazon.in" target="_blank"><span>☕ Order Now</span></a>
+    </div>
+    
+    <div class="product-card featured" data-category="gifts">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop" alt="Photo Frame"/>
+      <h3>Digital Photo Frame</h3>
+      <p>Display your favorite memories with this smart photo frame. WiFi enabled with app control.</p>
+      <a href="https://amazon.in" target="_blank"><span>🖼️ Buy Now</span></a>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2025 Smart Picks. All rights reserved.</p>
+    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">As an Amazon Associate I earn from qualifying purchases.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
